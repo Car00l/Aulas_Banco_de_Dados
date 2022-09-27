@@ -1,30 +1,38 @@
+
+-- Questa A
 select *
-from engenheiro
+from aluno
 where cidade = 'Lins';
 
+-- Questao B
 select *
-from engenheiro 
-where sexo = 'F';
+from aluno
+where curso_id = 1;
 
+-- Questao C
 select *
-from engenheiro
-where atuacao = 'civil';
+from aluno
+where idade > 18;
 
-select eng_id
-from projeto
-where uf <> 'SP';
+-- Questao D
+select *
+from aluno
+where idade BETWEEN 18 AND 35; 
 
-select projeto.nome, engenheiro.atuacao
-from engenheiro, projeto
-where projeto.uf <> 'SP'
-where engenheiro.atuacao ;
+-- Questao E
+select *
+from aluno
+where curso_id = 3
+and cidade = 'Getulina';
 
-select eng_id
-from projeto 
-where nome = 'predio';
+-- Quetao F
+select *
+from aluno
+where curso_id = 3
+where cidade = 'Guaimbe'
 
-select projeto.nome, engenheiro.atuacao
-from engenheiro, projeto
-where projeto.nome = 'predio';
-
-
+-- Questao G
+select aluno.aluno_id, curso.area, aluno.matricula
+from aluno, curso
+where aluno.curso_id = 1
+and area = 'Tecnologia';

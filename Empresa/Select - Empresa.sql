@@ -260,3 +260,77 @@ select Departamento_Codigo, avg(Salario)
  group by Departamento_Codigo
  having avg(salario)> 500.00
  order by avg(Salario) desc;
+ 
+ -- Listar o nome dos departamentos que possuem empregados
+  
+ -- IN compara / amarra 
+ select nome 
+ from departamento
+ where codigo in (
+ select departamento_codigo
+ from empregado
+ where departamento_codigo is not null
+ );
+ 
+ -- Exists onde existe
+ select nome 
+ from departamento
+ where exists (
+ select departamento_codigo
+ from empregado
+ where departamento_codigo is not null
+ and codigo = Departamento_Codigo
+ );
+ 
+ -- NOT IN
+  select nome 
+ from departamento
+ where codigo not in(
+ select departamento_codigo
+ from empregado
+ where departamento_codigo is not null
+ );
+ 
+ -- NOT EXISTS
+  select nome 
+ from departamento
+ where not exists (
+ select departamento_codigo
+ from empregado
+ where departamento_codigo is not null
+ and codigo = Departamento_Codigo
+ );
+ 
+ -- Listar os dados de todas as combinações possiveis de empregados com departamento
+ select *
+ from empregado, departamento;
+ 
+ -- CROSS JOIN tras todas as informaçãoes
+ select *
+ from empregado cross join departamento;
+ 
+  -- INNER JOIN compara duas tabelas 
+ -- Listar os dados de todos os empregados e dos departamentos relacionados
+ select empregado.*, nome as dep
+ from empregado inner join departamento
+ on Departamento_Codigo = Codigo;
+ 
+ -- Utilizando o NATURAL JOIN sem comparação nenhuma
+ select *
+ from empregado natural join dep;
+ 
+ -- Alterar na tabela dep o campo codigo para departamento_codigo ai podemos ver tranquilamente a ultilização do Natural join
+ 
+ -- OUTER JOIN
+ 
+ -- Listar os dados de todos os empregados, independente deles estraem relacionados a departamento 
+ -- Quando o empregado estiver relacionado a um departamento, apresente os dados do departaemnto
+ select *
+ from empregado left outer join departamento
+ on Departamento_Codigo = codigo;
+ 
+  -- Listar os dados de todos os departamentos, independente deles estraem relacionados a um empregado 
+ -- Quando o departamento estiver relacionado a um empregado, apresente os dados de empregado
+select *
+ from empregado right outer join departamento
+ on Departamento_Codigo = codigo;
